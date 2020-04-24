@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane fx:id="root" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QiSepp.DisplayQuizzController">
+   <children>
+      <AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="anchorPaneControlls" stylesheets="@DisplayQuizzStyleSheet.css">
+         <children>
+            <Button layoutX="141.0" layoutY="76.0" mnemonicParsing="false" onAction="#zurueck" text="&lt;--Zurück" />
+            <Button layoutX="211.0" layoutY="76.0" mnemonicParsing="false" onAction="#naechste" prefHeight="25.0" prefWidth="80.0" text="Nächste --&gt;" />
+            <Label fx:id="displayFrage" layoutX="22.0" layoutY="108.0" prefHeight="42.0" prefWidth="600.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="displayFrageNum" layoutX="22.0" layoutY="68.0" prefHeight="42.0" prefWidth="106.0" text="Frage 1:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <VBox fx:id="containerAnswers" layoutX="49.0" layoutY="167.0" prefHeight="221.0" prefWidth="381.0" />
+            <VBox fx:id="containerCheckboxes" layoutX="22.0" layoutY="167.0" prefHeight="221.0" prefWidth="88.0" />
+            <Label fx:id="quizName" alignment="CENTER" contentDisplay="CENTER" layoutX="232.0" layoutY="2.0" prefHeight="61.0" prefWidth="368.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Button layoutX="15.0" layoutY="3.0" mnemonicParsing="false" onAction="#goBack" prefHeight="60.0" prefWidth="120.0" text="Zurück" />
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

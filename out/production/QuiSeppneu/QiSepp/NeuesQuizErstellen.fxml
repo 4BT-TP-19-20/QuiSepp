@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane fx:id="root" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QiSepp.NeuesQuizErstellenController">
+   <children>
+      <AnchorPane fx:id="anchorPane" prefHeight="800.0" prefWidth="1200.0" styleClass="anchorPaneControlls" stylesheets="@NeuesQuizErstellenStyleSheet.css">
+        <children>
+          <Label fx:id="disNumFrage" layoutX="14.0" layoutY="112.0" prefHeight="38.0" prefWidth="130.0" text="Frage: 1">
+            <font>
+              <Font size="20.0" fx:id="x1" />
+            </font>
+          </Label>
+          <TextField fx:id="quizName" alignment="CENTER" layoutX="170.0" layoutY="58.0" prefWidth="159.0" />
+          <TextField fx:id="quizPassword" alignment="CENTER" layoutX="340.0" layoutY="58.0" prefHeight="25.0" prefWidth="159.0" />
+          <Label alignment="CENTER" font="$x1" layoutX="170.0" layoutY="11.0" prefHeight="47.0" prefWidth="159.0" text="Quiz Name" textAlignment="LEFT" />
+          <Label alignment="CENTER" font="$x1" layoutX="338.0" layoutY="11.0" prefHeight="47.0" prefWidth="159.0" text="Quiz Password" />
+          <TextField fx:id="frage" layoutX="14.0" layoutY="192.0" prefHeight="37.0" prefWidth="548.0" promptText="Frage Eingeben" />
+          <VBox fx:id="containerAllAnswers" layoutX="9.0" layoutY="296.0" prefHeight="490.0" prefWidth="548.0" />
+          <VBox fx:id="containerAllCheckBox" layoutX="574.0" layoutY="296.0" prefHeight="490.0" prefWidth="116.0" />
+          <Button layoutX="14.0" layoutY="259.0" mnemonicParsing="false" onAction="#addAnswer" prefHeight="25.0" prefWidth="145.0" text="+ (Antwort hinzufügen)" />
+          <Button layoutX="158.0" layoutY="259.0" mnemonicParsing="false" onAction="#removeAnswer" prefHeight="25.0" prefWidth="145.0" text="- (Antwort löschen)" />
+          <Button fx:id="frageBtn" layoutX="697.0" layoutY="192.0" mnemonicParsing="false" onAction="#frageHinzufuegen" prefHeight="37.0" prefWidth="116.0" text="Frage hinzufügen" />
+          <Button contentDisplay="CENTER" font="$x1" layoutX="697.0" layoutY="12.0" mnemonicParsing="false" onAction="#quizSpeichern" prefHeight="100.0" prefWidth="116.0" text="Quiz &#10;speichern" textAlignment="CENTER" textFill="BLACK" />
+          <Button layoutX="14.0" layoutY="153.0" mnemonicParsing="false" onAction="#back" text="&lt;-- (vorherige Frage)" />
+          <Button layoutX="158.0" layoutY="153.0" mnemonicParsing="false" onAction="#forward" prefHeight="20.999900000002526" prefWidth="131.0" text="(nächste Frage)--&gt;" />
+            <Button layoutX="-2.0" layoutY="-1.0" mnemonicParsing="false" onAction="#goBack" prefHeight="68.0" prefWidth="139.0" text="Zurück" />
+            <Label alignment="CENTER" layoutX="511.0" layoutY="11.0" prefHeight="47.0" prefWidth="159.0" text="Max. Punkte" textAlignment="LEFT">
+               <font>
+                  <Font size="20.0" fx:id="x11" />
+               </font>
+            </Label>
+            <TextField fx:id="maxPunkteTextField" alignment="CENTER" layoutX="511.0" layoutY="58.0" onMouseExited="#changeMaxPunkte" prefHeight="25.0" prefWidth="159.0" />
+            <TextField fx:id="punktePerFrageTextField" alignment="CENTER" layoutX="574.0" layoutY="192.0" prefHeight="37.0" prefWidth="116.0" promptText="Punkte für Frage" />
+            <Label fx:id="displayVergebenePunkte" layoutX="683.0" layoutY="147.0" prefHeight="37.0" prefWidth="145.0" text="Vergebene Punkte: 0/0" />
+        </children>
+      </AnchorPane>
+   </children>
+</StackPane>

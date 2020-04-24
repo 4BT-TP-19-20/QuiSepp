@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="root" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QiSepp.LehrerSelectionController">
+   <children>
+      <AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="anchorPaneControlls" stylesheets="@LehrerSelectionStyleSheet.css">
+         <children>
+            <Button layoutX="103.0" layoutY="155.0" mnemonicParsing="false" onAction="#btnNeuesQuiz" prefHeight="90.0" prefWidth="108.0" text="neues Quiz &#10;erstellen" />
+            <Button layoutX="255.0" layoutY="155.0" mnemonicParsing="false" onAction="#btnAlleQuiz" prefHeight="90.0" prefWidth="108.0" text="alle erstellten &#10;Quiz" />
+            <Button layoutX="407.0" layoutY="155.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="108.0" text="abgeschlossene &#10;Quiz anschauen" />
+            <Button layoutX="-2.0" layoutY="-1.0" mnemonicParsing="false" onAction="#goBack" prefHeight="60.0" prefWidth="120.0" text="Zurück" />
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

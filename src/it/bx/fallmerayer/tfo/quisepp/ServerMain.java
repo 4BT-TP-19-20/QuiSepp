@@ -13,6 +13,7 @@ public class ServerMain {
     }
 
     public ServerMain () {
+
         threads = new Thread[20];
     }
 
@@ -23,6 +24,7 @@ public class ServerMain {
 
             for (int i = 0; i < 20; ++i) {
                 server.setClients(server.WaitForConnection(serverSocket), i);
+                System.out.println("Seppl");
                 server.logIn(server.getClient(i), i);
                 threads[i] = new Thread(server);
                 threads[i].start();

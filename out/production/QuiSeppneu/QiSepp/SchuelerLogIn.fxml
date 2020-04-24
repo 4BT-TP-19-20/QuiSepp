@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="root" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QiSepp.SchuelerLogInController">
+   <children>
+      <AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="anchorPaneControlls" stylesheets="@SchuelerLogInStyleSheet.css">
+         <children>
+            <Label fx:id="nameLabel" layoutX="215.0" layoutY="133.0" text="Name:" />
+            <Label fx:id="nachnameLabel" layoutX="215.0" layoutY="192.0" text="Nachname:" />
+            <TextField fx:id="nameTextField" layoutX="215.0" layoutY="150.0" />
+            <TextField fx:id="nachnameTextField" layoutX="215.0" layoutY="209.0" />
+            <Button fx:id="quizStartenBtn" layoutX="249.0" layoutY="298.0" mnemonicParsing="false" onAction="#starteQuiz" text="Quiz Starten" />
+            <Button fx:id="schuelerBtn" layoutY="2.0" mnemonicParsing="false" text="Schüler" />
+            <Button fx:id="lehrerBtn" layoutX="55.0" layoutY="2.0" mnemonicParsing="false" onAction="#changeToLehrerLogIn" text="Lehrer" />
+         </children></AnchorPane>
+   </children>
+</StackPane>
