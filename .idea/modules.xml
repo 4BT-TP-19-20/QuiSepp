@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/QuiSeppServer.iml" filepath="$PROJECT_DIR$/.idea/QuiSeppServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/QuiSeppneu.iml" filepath="$PROJECT_DIR$/QuiSeppneu.iml" />
     </modules>
   </component>
 </project>
