@@ -39,8 +39,16 @@ public class SchuelerLogInController {
     private String nachname;
 
     public void starteQuiz(){
-        name = nameTextField.getText();
-        nachname = nachnameTextField.getText();
+        if(nameTextField.getText().equals("")){
+           nameTextField.setStyle("-fx-background-color: red");
+        }else{
+            name = nameTextField.getText();
+        }
+        if(nachnameTextField.getText().equals("")){
+            nachnameTextField.setStyle("-fx-background-color: red");
+        }else{
+            nachname = nachnameTextField.getText();
+        }
     }
 
 

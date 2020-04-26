@@ -31,7 +31,7 @@ public class DisplayAllQuizzesController {
     ArrayList<Button> allButtons = new ArrayList<>();
 
     public void initialize(){
-        String path = "D:\\Informatk\\Programme\\spiel\\src\\QuiSepp\\src\\QiSepp\\Quizzes";
+        String path = "Quizze\\";
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
 

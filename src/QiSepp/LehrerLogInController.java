@@ -24,10 +24,11 @@ public class LehrerLogInController {
     TextField passwortTextField;
 
     private Scene currentScene;
-    private String lehrerBenutzername = "";
-    private String lehrerPasswort = "";
+    private String lehrerBenutzername = "admin";
+    private String lehrerPasswort = "adminpw";
+    public Client lehrer=new Client();
 
-    public void anmelden(){
+    public void anmelden() throws IOException {
         if(benuzterTextField.getText().compareTo(lehrerBenutzername) != 0){
             benuzterTextField.setStyle("-fx-text-fill: red");
             return;
@@ -37,6 +38,8 @@ public class LehrerLogInController {
             passwortTextField.setStyle("-fx-text-fill: red");
             return;
         }
+        lehrer.start("localhost");
+        lehrer.send(lehrerBenutzername);
         LoadScreenAnimation("LehrerSelection.fxml");
 
     }

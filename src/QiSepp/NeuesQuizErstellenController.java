@@ -177,7 +177,7 @@ public class NeuesQuizErstellenController {
 
     public void quizSpeichern(){
 
-        File f = new File("C:\\Users\\Simon\\IdeaProjects\\QuiSeppJavaFX\\src\\QiSepp\\Quizzes\\" + quizName.getText() + ".txt");
+        File f = new File("Quizze\\" + quizName.getText() + ".txt");
 
         try {
             f.createNewFile();

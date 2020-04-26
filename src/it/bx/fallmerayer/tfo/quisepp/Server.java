@@ -23,18 +23,10 @@ public class Server implements Runnable {
         String username=readMessage(client);
 
         if(username.equals("admin")){
-            String password=readMessage(client);
-            if(password.equals("adminpw")){
-                sendMessage(client, "1");
-            }else{
-                sendMessage(client, "2");
-                students[i]=username;
-                System.out.println("Schüler " +students[i] + " hat sich eingeloggt!");
-            }
+            System.out.println("Lehrer hat sich eingeloggt");
         }else{
-            sendMessage(client, "2");
             students[i]=username;
-            System.out.println("Schüler " +students[i] + " hat sich eingeloggt!");
+            System.out.println("Schüler " + students[i] + " hat sich eingeloggt!");
         }
     }
 
