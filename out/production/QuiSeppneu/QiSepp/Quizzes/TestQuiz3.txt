@@ -1,0 +1,1 @@
+TestQuiz3;pwd;30;;Bisch du da?;10;gut;false;net ganz so gut;false;;wie gets dio;10;bo?;false;dei mama;true;geh nach hause;true;;Wie olt bisch du?;12;10;false;wie dei oma;false;mio gets guit;false;;dei mammi;8;hallo;false;moin servus moin;false;;

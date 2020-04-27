@@ -22,7 +22,6 @@
           <VBox fx:id="containerAllCheckBox" layoutX="574.0" layoutY="296.0" prefHeight="490.0" prefWidth="116.0" />
           <Button layoutX="14.0" layoutY="259.0" mnemonicParsing="false" onAction="#addAnswer" prefHeight="25.0" prefWidth="145.0" text="+ (Antwort hinzufügen)" />
           <Button layoutX="158.0" layoutY="259.0" mnemonicParsing="false" onAction="#removeAnswer" prefHeight="25.0" prefWidth="145.0" text="- (Antwort löschen)" />
-          <Button fx:id="frageBtn" layoutX="697.0" layoutY="192.0" mnemonicParsing="false" onAction="#frageHinzufuegen" prefHeight="37.0" prefWidth="116.0" text="Frage hinzufügen" />
           <Button contentDisplay="CENTER" font="$x1" layoutX="697.0" layoutY="12.0" mnemonicParsing="false" onAction="#quizSpeichern" prefHeight="100.0" prefWidth="116.0" text="Quiz &#10;speichern" textAlignment="CENTER" textFill="BLACK" />
           <Button layoutX="14.0" layoutY="153.0" mnemonicParsing="false" onAction="#back" text="&lt;-- (vorherige Frage)" />
           <Button layoutX="158.0" layoutY="153.0" mnemonicParsing="false" onAction="#forward" prefHeight="20.999900000002526" prefWidth="131.0" text="(nächste Frage)--&gt;" />
@@ -32,9 +31,9 @@
                   <Font size="20.0" fx:id="x11" />
                </font>
             </Label>
-            <TextField fx:id="maxPunkteTextField" alignment="CENTER" layoutX="511.0" layoutY="58.0" onMouseExited="#changeMaxPunkte" prefHeight="25.0" prefWidth="159.0" />
+            <TextField fx:id="maxPunkteTextField" alignment="CENTER" layoutX="511.0" layoutY="58.0" onKeyReleased="#changeMaxPunkte" prefHeight="25.0" prefWidth="159.0" />
             <TextField fx:id="punktePerFrageTextField" alignment="CENTER" layoutX="574.0" layoutY="192.0" prefHeight="37.0" prefWidth="116.0" promptText="Punkte für Frage" />
-            <Label fx:id="displayVergebenePunkte" layoutX="683.0" layoutY="147.0" prefHeight="37.0" prefWidth="145.0" text="Vergebene Punkte: 0/0" />
+            <Label fx:id="displayVergebenePunkte" alignment="CENTER" layoutX="560.0" layoutY="147.0" prefHeight="37.0" prefWidth="145.0" text="Vergebene Punkte: 0/0" />
         </children>
       </AnchorPane>
    </children>

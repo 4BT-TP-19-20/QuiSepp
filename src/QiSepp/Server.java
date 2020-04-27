@@ -1,23 +1,22 @@
-package it.bx.fallmerayer.tfo.quisepp;
+package QiSepp;
 
 import com.sun.org.apache.xerces.internal.xs.StringList;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
 
 public class Server implements Runnable {
     public Socket[] clients;
     public String[] students;
-    public String[] allFiles;
     public int i;
+    String path = "D:\\Informatk\\Programme\\spiel\\src\\QuiSeppApp\\src\\QiSepp\\Quizzes\\";
+    File folder = new File(path);
 
     public Server(){
         i=0;
         students=new String[20];
         clients=new Socket[20];
-        allFiles=new String[50];
     }
 
 
@@ -28,25 +27,28 @@ public class Server implements Runnable {
         if(username.equals("admin")){
             System.out.println("Lehrer hat sich eingeloggt");
         }else{
-            username=username.concat(" ");
-            username=username.concat(readMessage(client));
             students[i]=username;
             System.out.println("Schüler " + students[i] + " hat sich eingeloggt!");
-            returnQuiz(readMessage(client));
         }
     }
 
-    public void returnQuiz(String key){
-        File f= new File("Quizze\\");
-        allFiles=f.list();
-        System.out.println(allFiles[0]);
+    public void getQuizRequest(Socket client, int i) throws IOException {
+        String quizName = readMessage(client);
 
+        File[] listOfFiles = folder.listFiles();
+        for(File file : listOfFiles){
+            BufferedReader br = new BufferedReader(new FileReader(path + file.getName()));
+            String strQuiz = br.readLine();
+            String[] password = strQuiz.split(";");
+            if(password[1].compareTo(quizName) == 0){
+                sendMessage(client, strQuiz);
+            }
+        }
     }
 
     public void sendMessage(Socket socket, String msg) throws IOException {
         PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
         printWriter.println(msg);
-
     }
 
     public String readMessage(Socket socket) throws IOException {

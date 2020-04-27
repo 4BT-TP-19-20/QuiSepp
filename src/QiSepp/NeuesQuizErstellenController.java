@@ -25,108 +25,143 @@ import java.util.ArrayList;
 
 
 public class NeuesQuizErstellenController {
-    @FXML
-    TextField quizName;
-    @FXML
-    TextField quizPassword;
-    @FXML
-    TextField maxPunkteTextField, punktePerFrageTextField;
-    int maxPunkte = 0;
-    @FXML
-    Label disNumFrage, displayVergebenePunkte;
-    int numFrage = 1;
-    int currentFrage = 1;
-    @FXML
-    TextField frage;
-    ArrayList<TextField> allAnswers = new ArrayList<>();
-    ArrayList<CheckBox> allAnswerCheckBox = new ArrayList<>();
-    @FXML
-    VBox containerAllAnswers;
-    @FXML
-    VBox containerAllCheckBox;
-    ArrayList<String> allData = new ArrayList<>();
-    @FXML
-    Button frageBtn;
+
     @FXML
     StackPane root;
     @FXML
     AnchorPane anchorPane;
+    @FXML
+    TextField maxPunkteTextField, punktePerFrageTextField, frage, quizPassword, quizName;
+    @FXML
+    Label disNumFrage, displayVergebenePunkte;
+    @FXML
+    VBox containerAllAnswers, containerAllCheckBox;
+
+    ArrayList<TextField> allCurrentAnswers = new ArrayList<>();
+    ArrayList<CheckBox> allCurrentAnswerCheckBox = new ArrayList<>();
+    ArrayList<Integer> allPoints = new ArrayList<>();
+    ArrayList<String> allData = new ArrayList<>();
+
+    int numFrage = 1;
+    int currentFrage = 1;
+    int maxPunkte = 0;
+
+    int MAX_ANSWERS = 15;
+    int DEAFAULT_FRAGE_PUNKTE = 1;
 
     public void addAnswer() {
-        if (allAnswers.size() < 20){
+        if (allCurrentAnswers.size() < MAX_ANSWERS){
             TextField textField = new TextField();
             CheckBox checkBox = new CheckBox();
             containerAllCheckBox.getChildren().add(checkBox);
             containerAllAnswers.getChildren().add(textField);
             textField.setPromptText("Gib eine Antort ein");
             checkBox.setText("");
-            allAnswers.add(textField);
-            allAnswerCheckBox.add(checkBox);
+            allCurrentAnswers.add(textField);
+            allCurrentAnswerCheckBox.add(checkBox);
             checkBox.setPrefHeight(25);
          }
     }
 
     public void removeAnswer(){
-        if(allAnswers.size() > 0){
-            containerAllCheckBox.getChildren().remove(allAnswerCheckBox.get(allAnswerCheckBox.size() - 1));
-            containerAllAnswers.getChildren().remove(allAnswers.get(allAnswers.size() - 1));
-            allAnswers.remove(allAnswers.size() - 1);
-            allAnswerCheckBox.remove(allAnswerCheckBox.size() - 1);
+        if(allCurrentAnswers.size() > 0){
+            containerAllCheckBox.getChildren().remove(allCurrentAnswerCheckBox.get(allCurrentAnswerCheckBox.size() - 1));
+            containerAllAnswers.getChildren().remove(allCurrentAnswers.get(allCurrentAnswers.size() - 1));
+            allCurrentAnswers.remove(allCurrentAnswers.size() - 1);
+            allCurrentAnswerCheckBox.remove(allCurrentAnswerCheckBox.size() - 1);
         }
     }
 
     public void collectData(){
         String data = "";
-        data += frage.getText() + ";";
-        for(int i = 0; i < allAnswers.size(); i++){
-            data += allAnswers.get(i).getText() + ";";
-            if(allAnswerCheckBox.get(i).isSelected() == true){
+        data += frage.getText() + ";" + getFragePunkte() + ";";
+        for(int i = 0; i < allCurrentAnswers.size(); i++){
+            data += allCurrentAnswers.get(i).getText() + ";";
+            if(allCurrentAnswerCheckBox.get(i).isSelected() == true){
                 data += "true" + ";";
             }else {
                 data += "false" + ";";
             }
         }
+        allPoints.add(getFragePunkte());
+        getFragePunkte();
+        changeVergebenPunkte();
         allData.add(data);
     }
 
     public void collectData(int pos){
         String data = "";
-        data += frage.getText() + ";";
-        for(int i = 0; i < allAnswers.size(); i++){
-            data += allAnswers.get(i).getText() + ";";
-            if(allAnswerCheckBox.get(i).isSelected() == true){
+        data += frage.getText() + ";" + getFragePunkte() + ";";
+        for(int i = 0; i < allCurrentAnswers.size(); i++){
+            data += allCurrentAnswers.get(i).getText() + ";";
+            if(allCurrentAnswerCheckBox.get(i).isSelected() == true){
                 data += "true" + ";";
             }else {
                 data += "false" + ";";
             }
         }
+        allPoints.remove(pos);
+        allPoints.add(pos, getFragePunkte());
+        getFragePunkte();
+        changeVergebenPunkte();
         allData.remove(pos);
         allData.add(pos, data);
     }
 
     public void frageHinzufuegen(){
-        if(currentFrage == numFrage) {
-
-            collectData();
-            numFrage++;
-            currentFrage = numFrage;
-            disNumFrage.setText("Frage: " + numFrage);
-            Clear();
-            frage.setText("");
-        }else {
-            collectData(currentFrage - 1);
+        if (frage.getText().compareTo("") != 0) {
+            if (currentFrage == numFrage && allData.size() < numFrage) {
+                collectData();
+                numFrage++;
+                currentFrage = numFrage;
+                disNumFrage.setText("Frage: " + numFrage);
+                Clear();
+                punktePerFrageTextField.setText("");
+                frage.setText("");
+            } else {
+                collectData(currentFrage - 1);
+            }
+            System.out.println("                                         ");
+            for (int i = 0; i < allData.size(); i++) {
+                System.out.println(allData.get(i));
+            }
         }
+
+    }
+
+    public void LoadExistingQuiz(String str){
+        //splitt the received data into all questions
+        String[] data = str.split(";;");
+
+        //set the Quiz name
+        quizName.setText(data[0].split(";")[0]);
+
+        //set the Quiz Password
+        quizPassword.setText(data[0].split(";")[1]);
+
+        //set the quiz MaxPoints
+        maxPunkteTextField.setText(data[0].split(";")[2]);
+
+        //store all question, answer and points
+        for (int i = 1; i < data.length; i ++){
+            allData.add(data[i] + ";");
+            allPoints.add(Integer.parseInt(data[i].split(";")[1]));
+        }
+        currentFrage = 2;
+        numFrage += allData.size();
+        back();
+        changeMaxPunkte();
     }
 
     public void forward(){
+        frageHinzufuegen();
         currentFrage++;
         if(currentFrage == numFrage) {
             disNumFrage.setText("Frage: " + numFrage);
-            frageBtn.setText("Frage hinzufügen");
             Clear();
+            punktePerFrageTextField.setText("");
             frage.setText("");
         }else if(currentFrage < numFrage) {
-            frageBtn.setText("Frage neu speichern");
             LoadQuestion();
         }else{
             currentFrage--;
@@ -135,11 +170,12 @@ public class NeuesQuizErstellenController {
 
 
     public void back(){
+        frageHinzufuegen();
         if(currentFrage > 1) {
-            frageBtn.setText("Frage neu speichern");
             currentFrage--;
             LoadQuestion();
         }
+
     }
 
     public void LoadQuestion(){
@@ -147,13 +183,14 @@ public class NeuesQuizErstellenController {
         disNumFrage.setText("Frage: " + currentFrage);
         String[] data = allData.get(currentFrage - 1).split(";");
         frage.setText(data[0]);
-        for(int i = 1; i < data.length; i += 2){
+        punktePerFrageTextField.setText(data[1]);
+        for(int i = 2; i < data.length; i += 2){
             TextField textField = new TextField();
             CheckBox checkBox = new CheckBox();
             containerAllCheckBox.getChildren().add(checkBox);
             containerAllAnswers.getChildren().add(textField);
-            allAnswers.add(textField);
-            allAnswerCheckBox.add(checkBox);
+            allCurrentAnswers.add(textField);
+            allCurrentAnswerCheckBox.add(checkBox);
             checkBox.setPrefHeight(25);
             checkBox.setText("");
             if(data[i + 1].compareTo("true") == 0){
@@ -169,14 +206,14 @@ public class NeuesQuizErstellenController {
     public void Clear(){
         containerAllAnswers.getChildren().clear();
         containerAllCheckBox.getChildren().clear();
-        allAnswers.clear();
-        allAnswerCheckBox.clear();
+        allCurrentAnswers.clear();
+        allCurrentAnswerCheckBox.clear();
     }
-
 
 
     public void quizSpeichern(){
 
+        frageHinzufuegen();
         File f = new File("Quizze\\" + quizName.getText() + ".txt");
 
         try {
@@ -184,7 +221,7 @@ public class NeuesQuizErstellenController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String finalData = quizName.getText() + ";" + quizPassword.getText() + ";;";
+        String finalData = quizName.getText() + ";" + quizPassword.getText() + ";" + maxPunkte + ";;";
 
         System.out.println("                                         ");
         for(int i = 0; i < allData.size(); i++){
@@ -200,9 +237,9 @@ public class NeuesQuizErstellenController {
         } catch (IOException e) {
             System.err.format("IOException: %s%n", e);
         }
-
-
     }
+
+
     public void LoadScreenAnimation(String fxmlFile){
         Parent newRoot = null;
         try {
@@ -210,32 +247,39 @@ public class NeuesQuizErstellenController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        Scene scene = anchorPane.getScene();
-        newRoot.translateXProperty().set(scene.getWidth());
-        root.getChildren().add(newRoot);
-
-        Timeline timeline = new Timeline();
-        KeyValue kv = new KeyValue(newRoot.translateXProperty(),0 , Interpolator.EASE_IN);
-        KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
-        timeline.getKeyFrames().add(kf);
-
-        timeline.setOnFinished(t -> {
-            root.getChildren().remove(anchorPane);
-            scene.getWindow().setWidth(600);
-            scene.getWindow().setHeight(500);
-            scene.getWindow().setX(652);
-            scene.getWindow().setY(180);
-        });
-        timeline.play();
+        SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane, 600, 500, 652,180);
     }
 
     public void changeMaxPunkte(){
-        maxPunkte = Integer.parseInt(maxPunkteTextField.getText());
+        String punkteStr = (String)maxPunkteTextField.getText();
+        if(punkteStr.compareTo("") != 0){
+            maxPunkte = Integer.parseInt(punkteStr);
+        }
+        changeVergebenPunkte();
+    }
+
+    public void changeVergebenPunkte(){
+        int allcurrentPunkte = 0;
+        for (int i = 0; i < allPoints.size(); i++){
+            allcurrentPunkte += allPoints.get(i);
+        }
+        displayVergebenePunkte.setText("Vergebene Punkte: " + allcurrentPunkte + "/" + maxPunkte);
     }
 
     public void goBack(){
         LoadScreenAnimation("LehrerSelection.fxml");
+    }
+
+    public int getFragePunkte(){
+        String punkteStr = punktePerFrageTextField.getText();
+        int punkte = 0;
+        if(punkteStr.compareTo("") != 0){
+            punkte = Integer.parseInt(punkteStr);
+        }else{
+            punkte =   DEAFAULT_FRAGE_PUNKTE;
+        }
+        return punkte;
+
     }
 
 }

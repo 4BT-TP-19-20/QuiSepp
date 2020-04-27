@@ -22,44 +22,33 @@ public class LehrerSelectionController {
     AnchorPane anchorPane;
 
     public void btnNeuesQuiz(){
-        LoadScreenAnimation("NeuesQuizErstellen.fxml", true);
-    }
-
-    public void LoadScreenAnimation(String fxmlFile, boolean rescaleWindow){
         Parent newRoot = null;
         try {
-            newRoot = FXMLLoader.load(getClass().getResource(fxmlFile));
+            newRoot = FXMLLoader.load(getClass().getResource("NeuesQuizErstellen.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        Scene scene = anchorPane.getScene();
-        newRoot.translateXProperty().set(scene.getWidth());
-        root.getChildren().add(newRoot);
-
-        Timeline timeline = new Timeline();
-        KeyValue kv = new KeyValue(newRoot.translateXProperty(),0 , Interpolator.EASE_IN);
-        KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
-        timeline.getKeyFrames().add(kf);
-
-        timeline.setOnFinished(t -> {
-            root.getChildren().remove(anchorPane);
-            if(rescaleWindow == true) {
-                scene.getWindow().setWidth(900);
-                scene.getWindow().setHeight(900);
-                scene.getWindow().setX(500);
-                scene.getWindow().setY(70);
-            }
-        });
-        timeline.play();
+        SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane, 900, 900, 500, 70);
     }
 
     public void btnAlleQuiz(){
-        LoadScreenAnimation("DisplayAllQuizzes.fxml", false);
+        Parent newRoot = null;
+        try {
+            newRoot = FXMLLoader.load(getClass().getResource("DisplayAllQuizzes.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane);
     }
 
     public void goBack(){
-        LoadScreenAnimation("LehrerLogIn.fxml", false);
+        Parent newRoot = null;
+        try {
+            newRoot = FXMLLoader.load(getClass().getResource("LehrerLogIn.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane);
     }
 
 }

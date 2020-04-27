@@ -25,10 +25,10 @@ public class LehrerLogInController {
 
     private Scene currentScene;
     private String lehrerBenutzername = "admin";
-    private String lehrerPasswort = "adminpw";
+    private String lehrerPasswort = "admin123";
     public Client lehrer=new Client();
 
-    public void anmelden() throws IOException {
+    public void anmelden(){
         if(benuzterTextField.getText().compareTo(lehrerBenutzername) != 0){
             benuzterTextField.setStyle("-fx-text-fill: red");
             return;
@@ -38,10 +38,22 @@ public class LehrerLogInController {
             passwortTextField.setStyle("-fx-text-fill: red");
             return;
         }
+        StarteServer();
         lehrer.start("localhost");
-        lehrer.send(lehrerBenutzername);
-        LoadScreenAnimation("LehrerSelection.fxml");
 
+        Parent newRoot = null;
+        try {
+            newRoot = FXMLLoader.load(getClass().getResource("LehrerSelection.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane);
+
+    }
+
+    public void StarteServer(){
+        ServerMain serverMain = new ServerMain();
+        serverMain.start();
     }
 
     public void resetBenetzernameField(){
@@ -53,31 +65,15 @@ public class LehrerLogInController {
     }
 
     public void changeToSchuelerLogIn(){
-        LoadScreenAnimation("SchuelerLogIn.fxml");
-    }
-
-    public void LoadScreenAnimation(String fxmlFile){
         Parent newRoot = null;
         try {
-            newRoot = FXMLLoader.load(getClass().getResource(fxmlFile));
+            newRoot = FXMLLoader.load(getClass().getResource("SchuelerLogIn.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        Scene scene = anchorPane.getScene();
-        newRoot.translateXProperty().set(scene.getWidth());
-        root.getChildren().add(newRoot);
-
-        Timeline timeline = new Timeline();
-        KeyValue kv = new KeyValue(newRoot.translateXProperty(),0 , Interpolator.EASE_IN);
-        KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
-        timeline.getKeyFrames().add(kf);
-
-        timeline.setOnFinished(t -> {
-            root.getChildren().remove(anchorPane);
-        });
-        timeline.play();
+        SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane);
     }
+
 
 
 }

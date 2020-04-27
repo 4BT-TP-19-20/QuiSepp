@@ -50,11 +50,16 @@ public class DisplayAllQuizzesController {
                     button.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
+                            FXMLLoader fxmlLoader = new FXMLLoader();
+                            Parent newRoot = null;
                             try {
-                                LoadScreenAnimation("DisplayQuizz.fxml", str);
+                                newRoot = newRoot = fxmlLoader.load(getClass().getResource("DisplayQuizz.fxml").openStream());
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+                            DisplayQuizzController displayQuizzController = (DisplayQuizzController) fxmlLoader.getController();
+                            displayQuizzController.receiveQuiz(str, false, false);
+                            SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane, 900, 900, 500, 70);
                         }
                     });
                 } catch (FileNotFoundException e) {
@@ -68,25 +73,16 @@ public class DisplayAllQuizzesController {
         }
     }
 
-    public void LoadScreenAnimation(String fxmlFile, String data) throws IOException {
+    public void goBack(){
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent newRoot = newRoot = fxmlLoader.load(getClass().getResource(fxmlFile).openStream());
+        Parent newRoot = null;
+        try {
+            newRoot = newRoot = fxmlLoader.load(getClass().getResource("LehrerSelection.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane);
 
-        DisplayQuizzController displayQuizzController = (DisplayQuizzController)fxmlLoader.getController();
-        displayQuizzController.receiveQuiz(data, true, false);
-
-        Scene scene = anchorPane.getScene();
-        newRoot.translateXProperty().set(scene.getWidth());
-        root.getChildren().add(newRoot);
-
-        Timeline timeline = new Timeline();
-        KeyValue kv = new KeyValue(newRoot.translateXProperty(),0 , Interpolator.EASE_IN);
-        KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
-        timeline.getKeyFrames().add(kf);
-
-        timeline.setOnFinished(t -> {
-            root.getChildren().remove(anchorPane);
-        });
-        timeline.play();
     }
+
 }

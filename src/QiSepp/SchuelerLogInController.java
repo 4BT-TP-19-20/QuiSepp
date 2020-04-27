@@ -30,81 +30,49 @@ public class SchuelerLogInController {
     @FXML
     TextField nachnameTextField;
     @FXML
+    TextField quizPassoworTextField;
+    @FXML
     Button schuelerBtn, lehrerBtn, quizStartenBtn;
     @FXML
     Label nameLabel, nachnameLabel;
+    @FXML
+    TextField serverIP;
 
     private Scene currentScene;
     private String name;
     private String nachname;
+    public Client schüler=new Client();
 
-    public void starteQuiz(){
-        if(nameTextField.getText().equals("")){
-           nameTextField.setStyle("-fx-background-color: red");
-        }else{
-            name = nameTextField.getText();
-        }
-        if(nachnameTextField.getText().equals("")){
-            nachnameTextField.setStyle("-fx-background-color: red");
-        }else{
-            nachname = nachnameTextField.getText();
-        }
+    public void starteQuiz() throws IOException {
+        name = nameTextField.getText();
+        nachname = nachnameTextField.getText();
+        StarteClient(serverIP.getText());
     }
 
 
     public void changeToLehrerLogIn(){
-        LoadScreenAnimation("LehrerLogIn.fxml");
-    }
-
-    public void LoadScreenAnimation(String fxmlFile){
         Parent newRoot = null;
         try {
-            newRoot = FXMLLoader.load(getClass().getResource(fxmlFile));
+            newRoot = FXMLLoader.load(getClass().getResource("LehrerLogIn.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        Scene scene = anchorPane.getScene();
-        newRoot.translateXProperty().set(scene.getWidth());
-        root.getChildren().add(newRoot);
-
-        Timeline timeline = new Timeline();
-        KeyValue kv = new KeyValue(newRoot.translateXProperty(),0 , Interpolator.EASE_IN);
-        KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
-        timeline.getKeyFrames().add(kf);
-
-        timeline.setOnFinished(t -> {
-            root.getChildren().remove(anchorPane);
-        });
-        timeline.play();
+        SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane);
     }
 
-    /*public void SetHandler(){
-        Scene scene = root.getScene();
-        scene.widthProperty().addListener(new ChangeListener<Number>() {
-            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
-                double offset = (double)newSceneWidth - (double)oldSceneWidth;
-                schuelerBtn.setPrefWidth(schuelerBtn.getPrefWidth() + offset);
-                lehrerBtn.setPrefWidth(lehrerBtn.getPrefWidth() + offset);
-                quizStartenBtn.setPrefWidth(quizStartenBtn.getPrefWidth() + offset);
-                nameLabel.setPrefWidth(nameLabel.getPrefWidth() + offset);
-                nachnameLabel.setPrefWidth(nachnameLabel.getPrefWidth() + offset);
-                nameTextField.setPrefWidth(nameTextField.getPrefWidth() + offset);
-                nachnameTextField.setPrefWidth(nachnameTextField.getPrefWidth() + offset);
-            }
-        });
-        scene.heightProperty().addListener(new ChangeListener<Number>() {
-            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
-                double offset = (double)newSceneHeight - (double)oldSceneHeight;
-                schuelerBtn.setPrefHeight(schuelerBtn.getPrefHeight() + offset);
-                lehrerBtn.setPrefHeight(lehrerBtn.getPrefHeight() + offset);
-                quizStartenBtn.setPrefHeight(quizStartenBtn.getPrefHeight() + offset);
-                nameLabel.setPrefHeight(nameLabel.getPrefHeight() + offset);
-                nachnameLabel.setPrefHeight(nachnameLabel.getPrefHeight() + offset);
-                nameTextField.setPrefHeight(nameTextField.getPrefHeight() + offset);
-                nachnameTextField.setPrefHeight(nachnameTextField.getPrefHeight() + offset);
-            }
-        });
-    }*/
+    public void StarteClient(String ip) throws IOException {
+        schüler.start(ip);
+        schüler.send(name);
+        schüler.send(nachname);
+
+        SendQuizPasswordToServer();
+    }
+
+    public void SendQuizPasswordToServer() throws IOException {
+        String passwort = quizPassoworTextField.getText();
+        schüler.send(passwort);
+
+    }
+
 
 }

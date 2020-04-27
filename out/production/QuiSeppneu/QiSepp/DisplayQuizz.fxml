@@ -4,30 +4,46 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane fx:id="root" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QiSepp.DisplayQuizzController">
+<StackPane fx:id="root" prefHeight="900.0" prefWidth="900.0" styleClass="anchorPaneControlls" stylesheets="@DisplayQuizzStyleSheet.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QiSepp.DisplayQuizzController">
    <children>
-      <AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="anchorPaneControlls" stylesheets="@DisplayQuizzStyleSheet.css">
+      <AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <Button layoutX="141.0" layoutY="76.0" mnemonicParsing="false" onAction="#zurueck" text="&lt;--Zurück" />
-            <Button layoutX="211.0" layoutY="76.0" mnemonicParsing="false" onAction="#naechste" prefHeight="25.0" prefWidth="80.0" text="Nächste --&gt;" />
-            <Label fx:id="displayFrage" layoutX="22.0" layoutY="108.0" prefHeight="42.0" prefWidth="600.0">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="displayFrageNum" layoutX="22.0" layoutY="68.0" prefHeight="42.0" prefWidth="106.0" text="Frage 1:">
+            <Button layoutX="135.0" layoutY="145.0" mnemonicParsing="false" onAction="#zurueck" text="&lt;--Vorherige Frage" />
+            <Button layoutX="253.0" layoutY="145.0" mnemonicParsing="false" onAction="#naechste" prefHeight="25.0" prefWidth="138.0" text="Nächste Frage --&gt;" />
+            <Label fx:id="displayFrage" layoutX="22.0" layoutY="172.0" prefHeight="42.0" prefWidth="691.0">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <VBox fx:id="containerAnswers" layoutX="49.0" layoutY="167.0" prefHeight="221.0" prefWidth="381.0" />
-            <VBox fx:id="containerCheckboxes" layoutX="22.0" layoutY="167.0" prefHeight="221.0" prefWidth="88.0" />
-            <Label fx:id="quizName" alignment="CENTER" contentDisplay="CENTER" layoutX="232.0" layoutY="2.0" prefHeight="61.0" prefWidth="368.0">
+            <Label fx:id="displayFrageNum" layoutX="22.0" layoutY="136.0" prefHeight="42.0" prefWidth="106.0" text="Frage: 1">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Button layoutX="15.0" layoutY="3.0" mnemonicParsing="false" onAction="#goBack" prefHeight="60.0" prefWidth="120.0" text="Zurück" />
+            <VBox fx:id="containerAnswers" layoutX="48.0" layoutY="234.0" prefHeight="341.0" prefWidth="600.0" />
+            <VBox fx:id="containerCheckboxes" layoutX="22.0" layoutY="234.0" prefHeight="341.0" prefWidth="88.0" />
+            <Label fx:id="displayQuizName" alignment="CENTER" contentDisplay="CENTER" layoutX="135.0" layoutY="2.0" prefHeight="61.0" prefWidth="201.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Button layoutY="2.0" mnemonicParsing="false" onAction="#goBack" prefHeight="60.0" prefWidth="120.0" text="Zurück" />
+            <Pane fx:id="buttonHolder" layoutX="788.0" prefHeight="88.0" prefWidth="98.0" />
+            <Label fx:id="displayPunktePerFrage" alignment="CENTER" layoutX="701.0" layoutY="172.0" prefHeight="42.0" prefWidth="158.0" text="Punkte: ">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="displayQuizPunkte" alignment="CENTER" layoutX="552.0" layoutY="2.0" prefHeight="61.0" prefWidth="236.0" text="Quiz Punkte: ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="displayQuizPassword" alignment="CENTER" layoutX="343.0" layoutY="2.0" prefHeight="61.0" prefWidth="215.0" text="Zugang: ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>
