@@ -5,25 +5,27 @@ import com.sun.org.apache.xerces.internal.xs.StringList;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.Buffer;
 import java.util.Arrays;
 
 public class Server implements Runnable {
     public Socket[] clients;
     public String[] students;
-    public String[] allFiles;
+    public String[] inhalt;
+    public File[] files;
+    public int j=-1;
     public int i;
 
     public Server(){
         i=0;
         students=new String[20];
         clients=new Socket[20];
-        allFiles=new String[50];
+        inhalt=new String[50];
     }
-
-
 
     public void logIn(Socket client, int i) throws IOException {
         String username=readMessage(client);
+        ++j;
 
         if(username.equals("admin")){
             System.out.println("Lehrer hat sich eingeloggt");
@@ -36,11 +38,24 @@ public class Server implements Runnable {
         }
     }
 
-    public void returnQuiz(String key){
+    public void returnQuiz(String key) throws IOException {
         File f= new File("Quizze\\");
-        allFiles=f.list();
-        System.out.println(allFiles[0]);
-
+        String quiz;
+        files=f.listFiles();
+        int i=0;
+        do{
+            FileReader fileReader=new FileReader(files[i]);
+            BufferedReader br = new BufferedReader(fileReader);
+            quiz=br.readLine();
+            inhalt=quiz.split(";");
+            if(inhalt[1].equals(key)){
+                System.out.println("Key gefunden!!!");
+                sendMessage(clients[j], quiz);
+                return;
+            }
+            ++i;
+        }while(i<files.length);
+        System.out.println("Key nicht gefunden!");
     }
 
     public void sendMessage(Socket socket, String msg) throws IOException {

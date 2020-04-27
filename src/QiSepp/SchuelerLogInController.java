@@ -42,8 +42,9 @@ public class SchuelerLogInController {
     private String name;
     private String nachname;
     public Client schüler=new Client();
+    private String quiz;
 
-    public void starteQuiz() throws IOException {
+    public void starteQuiz() throws IOException, InterruptedException {
         name = nameTextField.getText();
         nachname = nachnameTextField.getText();
         StarteClient(serverIP.getText());
@@ -60,10 +61,11 @@ public class SchuelerLogInController {
         SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane);
     }
 
-    public void StarteClient(String ip) throws IOException {
+    public void StarteClient(String ip) throws IOException, InterruptedException {
         schüler.start(ip);
         schüler.send(name);
         schüler.send(nachname);
+        Thread.sleep(2000);
 
         SendQuizPasswordToServer();
     }
@@ -71,7 +73,8 @@ public class SchuelerLogInController {
     public void SendQuizPasswordToServer() throws IOException {
         String passwort = quizPassoworTextField.getText();
         schüler.send(passwort);
-
+        quiz=schüler.read();
+        System.out.println("Quiz: " + quiz);
     }
 
 

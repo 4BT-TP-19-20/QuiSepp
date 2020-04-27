@@ -1,1 +1,0 @@
-Test Quiz2;paswd;40;;du sack;10;gut ;true;schlecht;false;;Bist du noch da?!;12;vl;false;sicher;true;jaaa;false;bist du dumm?;8;Ja bin ich;false;sicher;true;immer;false;Probleme?;10;du?;true;nein!;false;
