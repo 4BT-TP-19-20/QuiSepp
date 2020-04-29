@@ -1,9 +1,5 @@
 package QiSepp;
 
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -11,17 +7,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 public class DisplayQuizzController {
 
@@ -85,7 +77,7 @@ public class DisplayQuizzController {
     public void goBack() {
         Parent newRoot = null;
         try {
-            newRoot = FXMLLoader.load(getClass().getResource("LehrerSelection.fxml"));
+            newRoot = FXMLLoader.load(getClass().getResource("SchuelerLogIn.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -198,6 +190,10 @@ public class DisplayQuizzController {
             editButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
+                    PackToFinalString();
+                    System.out.println(finalQuiz);
+                    SendBackQuizResults(finalQuiz);
+
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     Parent newRoot = null;
                     try {
@@ -206,8 +202,6 @@ public class DisplayQuizzController {
                         e.printStackTrace();
                     }
                     DisplayQuizzController displayQuizzController = (DisplayQuizzController) fxmlLoader.getController();
-                    PackToFinalString();
-                    System.out.println(finalQuiz);
                     displayQuizzController.receiveQuiz(str, finalQuiz,false, true);
                     SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane);
 
@@ -215,6 +209,12 @@ public class DisplayQuizzController {
             });
         }
     }
+
+
+    public void SendBackQuizResults(String quiz){
+
+    }
+
 
     public void ClearDisplayingQuestion(){
         containerAnswers.getChildren().clear();
@@ -269,9 +269,9 @@ public class DisplayQuizzController {
                 });
             }
             if(canViewCorrectAnswers){
-               if(CheckForfalseAnswers(i, currFrage) == true){
-                   label.setStyle("-fx-background-color: RED");
-               }
+                if(CheckForfalseAnswers(i, currFrage) == true){
+                    label.setStyle("-fx-background-color: RED");
+                }
             }
         }
 

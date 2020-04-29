@@ -1,21 +1,14 @@
 package QiSepp;
 
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -60,7 +53,7 @@ public class NeuesQuizErstellenController {
             allCurrentAnswers.add(textField);
             allCurrentAnswerCheckBox.add(checkBox);
             checkBox.setPrefHeight(25);
-         }
+        }
     }
 
     public void removeAnswer(){

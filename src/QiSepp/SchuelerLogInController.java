@@ -1,11 +1,5 @@
 package QiSepp;
 
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -75,6 +68,20 @@ public class SchuelerLogInController {
         schüler.send(passwort);
         quiz=schüler.read();
         System.out.println("Quiz: " + quiz);
+        StarteErhaltenesQuiz(quiz);
+    }
+
+    public void StarteErhaltenesQuiz(String quiz){
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent newRoot = null;
+        try {
+            newRoot = newRoot = fxmlLoader.load(getClass().getResource("DisplayQuizz.fxml").openStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        DisplayQuizzController displayQuizzController = (DisplayQuizzController) fxmlLoader.getController();
+        displayQuizzController.receiveQuiz(quiz, false, false);
+        SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane, 900, 900, 500, 70);
     }
 
 
