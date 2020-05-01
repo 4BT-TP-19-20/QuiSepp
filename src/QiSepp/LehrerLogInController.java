@@ -1,6 +1,5 @@
 package QiSepp;
 
-import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -28,12 +26,15 @@ public class LehrerLogInController {
     private String lehrerPasswort = "admin123";
     public Client lehrer=new Client();
 
+
     public void anmelden(){
+        //checks the username and sets the text to red if it was incorrect
         if(benuzterTextField.getText().compareTo(lehrerBenutzername) != 0){
             benuzterTextField.setStyle("-fx-text-fill: red");
             return;
         }
 
+        //checks the password and sets the text to red if it was incorrect
         if(passwortTextField.getText().compareTo(lehrerPasswort) != 0){
             passwortTextField.setStyle("-fx-text-fill: red");
             return;

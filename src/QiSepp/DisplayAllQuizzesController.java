@@ -24,6 +24,7 @@ public class DisplayAllQuizzesController {
     ArrayList<String> allData = new ArrayList<>();
     ArrayList<Button> allButtons = new ArrayList<>();
 
+    //displays every quiz that is stored locally on the teachers pc and displays it with a button
     public void initialize(){
         String path = "Quizze\\";
         File folder = new File(path);
@@ -41,6 +42,7 @@ public class DisplayAllQuizzesController {
                     vboxForQuizzes.getChildren().add(button);
                     button.setPrefWidth(vboxForQuizzes.getPrefWidth());
                     allButtons.add(button);
+                    //it the button gets pressed the DisplayQuiz Class receives the string from the text file
                     button.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {

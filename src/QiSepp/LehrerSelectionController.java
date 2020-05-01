@@ -1,16 +1,10 @@
 package QiSepp;
 
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -21,6 +15,7 @@ public class LehrerSelectionController {
     @FXML
     AnchorPane anchorPane;
 
+    // -the teacher can create a empty quiz and store it in a file (if you want to reopen a existing quiz you have to use display all quiz
     public void btnNeuesQuiz(){
         Parent newRoot = null;
         try {
@@ -31,6 +26,9 @@ public class LehrerSelectionController {
         SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane, 900, 900, 500, 70);
     }
 
+    // -displays all localy in a textfile stored quizzes
+    // -if you are a teacher you can select the quiz so that it gets displayed
+    //  and you get a button in the right upper corner to edit the quiz
     public void btnAlleQuiz(){
         Parent newRoot = null;
         try {

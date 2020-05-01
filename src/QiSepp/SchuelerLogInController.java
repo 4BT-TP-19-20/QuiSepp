@@ -19,27 +19,27 @@ public class SchuelerLogInController {
     @FXML
     AnchorPane anchorPane;
     @FXML
-    TextField nameTextField;
+    TextField nameTextField;  //To enter the name of the student
     @FXML
-    TextField nachnameTextField;
+    TextField nachnameTextField; //To enter the nachname of the student
     @FXML
-    TextField quizPassoworTextField;
+    TextField quizPassoworTextField; //to enter the password of the quiz that the student wants to make
     @FXML
     Button schuelerBtn, lehrerBtn, quizStartenBtn;
     @FXML
     Label nameLabel, nachnameLabel;
     @FXML
-    TextField serverIP;
+    TextField serverIP;     //the student has to type in the IP that he receives from the teacher to connect to the server
 
-    private Scene currentScene;
     private String name;
     private String nachname;
-    public Client schüler=new Client();
+    public Client schüler = new Client();
     private String quiz;
 
     public void starteQuiz() throws IOException, InterruptedException {
         name = nameTextField.getText();
         nachname = nachnameTextField.getText();
+        //Client starts when a student logs in
         StarteClient(serverIP.getText());
     }
 
@@ -54,6 +54,7 @@ public class SchuelerLogInController {
         SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane);
     }
 
+    //Client wird gestartet und sendet ip und namen an den Serever
     public void StarteClient(String ip) throws IOException, InterruptedException {
         schüler.start(ip);
         schüler.send(name);
@@ -63,6 +64,7 @@ public class SchuelerLogInController {
         SendQuizPasswordToServer();
     }
 
+    //Schüler sendet quizpassword an Server und erhält dann das Quiz zugeschickt
     public void SendQuizPasswordToServer() throws IOException {
         String passwort = quizPassoworTextField.getText();
         schüler.send(passwort);
@@ -71,6 +73,7 @@ public class SchuelerLogInController {
         StarteErhaltenesQuiz(quiz);
     }
 
+    //Soblald das Quiz vom server zurückgesendet wird es gestartet und der Schüler kann es ausfüllen
     public void StarteErhaltenesQuiz(String quiz){
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent newRoot = null;

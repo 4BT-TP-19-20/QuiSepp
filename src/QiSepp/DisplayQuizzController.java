@@ -40,11 +40,17 @@ public class DisplayQuizzController {
     int intMaxPoints = 0;
     float receivedPoints = 0;
 
-    //properties to display the quiz
-    boolean canEditQuiz = false; //if the user can press the button to go to the edit screen (only for teacher) or if the user can send the result back (only for students)
-    boolean canViewCorrectAnswers = false; //if the user can see the results of the quiz
+    //*properties to display the quiz*//
+    //if true (only for teacher): it gets created a button to edit the quiz;
+    //if false (only students): the student can send the result back to server and view quiz
+    boolean canEditQuiz = false;
+
+    //if false the student can answer the question and the input from checkboxes gets stored
+    //if true the user can view the right answers to the question but not edit or change something
+    boolean canViewCorrectAnswers = false;
     int currFrage = 1;
 
+    //loads previous question
     public void zurueck(){
         if(currFrage > 1){
             currFrage--;
@@ -53,6 +59,7 @@ public class DisplayQuizzController {
         }
     }
 
+    //loads next question
     public void naechste(){
         if(currFrage < allQuestions.length){
             currFrage++;
@@ -61,13 +68,17 @@ public class DisplayQuizzController {
         }
     }
 
+    //*only if canViewCorrectAnswers == false && canEditQuiz == false*//
+    //gets called to store the answers when the student makes the quiz
     public void CheckBoxChanged(int which, boolean isSelected, int pos){
+        //data is the current string where all answers get stored
         String[] data = allAnswersPerQuestion[pos].split(";");
         if(isSelected == true) {
             data[which] = "true";
         }else {
             data[which] = "false";
         }
+        //replaces the string with the input of the student
         allAnswersPerQuestion[pos] = "";
         for (int i = 0; i < data.length; i++){
             allAnswersPerQuestion[pos] += data[i] + ";";
@@ -84,6 +95,9 @@ public class DisplayQuizzController {
         SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane, 600, 500, 652,180);
     }
 
+    //gets called:
+    // -when the teacher loads an existin quiz
+    // -when the student receives a quiz to solve
     public void receiveQuiz(String originalQuiz, boolean canEditQuiz, boolean canViewCorrectAnswers){
         //set Properties
         this.displayedQuiz = originalQuiz;
@@ -92,6 +106,8 @@ public class DisplayQuizzController {
         SetUpNewQuiz();
     }
 
+    //gets called:
+    // -when the student has filled in the quiz and has pressed send quiz
     public void receiveQuiz(String originalQuiz, String userQuiz, boolean canEditQuiz, boolean canViewCorrectAnswers){
         //set Properties
         this.displayedQuiz = userQuiz;
@@ -102,6 +118,7 @@ public class DisplayQuizzController {
     }
 
 
+    //loads the new quiz
     public void SetGenaralValues(String[] data){
         //set the Quiz name
         strQuizName = data[0].split(";")[0];
@@ -119,6 +136,7 @@ public class DisplayQuizzController {
     }
 
 
+    //loads the new quiz
     public void SetUpNewQuiz() {
         String[] data = displayedQuiz.split(";;");
         SetGenaralValues(data);
@@ -158,7 +176,13 @@ public class DisplayQuizzController {
         }
     }
 
+
+    //*only if canViewResults == false*//
+    //creates a button:
+    // -if canEditquiz == true the teacher can edit the quiz and it opens a new window when button pressed
+    // -if canEditquiz == false the student can send and view the results by pressing button
     public void SetButton(String str){
+        //creates a button at the pos of the holder of  the fxmlfile
         Button editButton = new Button();
         editButton.setPrefHeight(buttonHolder.getPrefHeight());
         editButton.setPrefWidth(buttonHolder.getPrefWidth());
@@ -166,9 +190,10 @@ public class DisplayQuizzController {
         editButton.setLayoutY(buttonHolder.getLayoutY());
         anchorPane.getChildren().add(editButton);
 
-        //set The button to edit/send the quiz
+        //set The button to edit the quiz
         if(canEditQuiz){
             editButton.setText("Quiz\nBearbeiten");
+            //when button pressed it loads the quiz to neuesQuizErstellenController and you can edit it
             editButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -185,8 +210,11 @@ public class DisplayQuizzController {
 
                 }
             });
+
+            //set the button to send the quiz and view it
         }else if(!canViewCorrectAnswers){
             editButton.setText("Quiz\nAbgeben");
+            //when pressed sends back the results to server and you can view the result of the quiz
             editButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -211,6 +239,7 @@ public class DisplayQuizzController {
     }
 
 
+    //sends the quiz that the student filled in back to the teacher
     public void SendBackQuizResults(String quiz){
 
     }
@@ -221,6 +250,8 @@ public class DisplayQuizzController {
         containerCheckboxes.getChildren().clear();
     }
 
+
+    //creates a final string form all current stored questions, answers and points
     public void PackToFinalString(){
         finalQuiz = "";
         finalQuiz += strQuizName + ";" + strQuizPassword + ";" + intMaxPoints + ";;";
@@ -229,10 +260,14 @@ public class DisplayQuizzController {
         }
     }
 
+
+    //loads the question, answers and points form the string and displays it
+    //the checkbox gets only ticked:
+    // -if canViewResults == false: checkbox bearbeiten == true; checkbox displays questions == false
+    // -if canEdit == true || canViewResults == true: checkbox bearbeiten == false; checkbox displays questions == true
     public void displayCurrentFrage() {
         //display question
         displayFrage.setText(allQuestions[currFrage - 1]);
-
         //display all answers of the question
         String[] allCurrentAnswers = allAnswersPerQuestion[currFrage - 1].split(";");
         for(int i = 0; i < allCurrentAnswers.length; i += 2){
@@ -246,6 +281,7 @@ public class DisplayQuizzController {
             checkBox.setPrefHeight(25);
             label.setText(allCurrentAnswers[i]);
             label.setPrefHeight(25);
+
             if(canEditQuiz || canViewCorrectAnswers) {
                 if (allCurrentAnswers[i + 1].compareTo("true") == 0) {
                     checkBox.setSelected(true);
@@ -261,6 +297,7 @@ public class DisplayQuizzController {
                     checkBox.setSelected(false);
                 }
                 int finalI = i;
+                //adds a listener to every new Checkbox that calls a funktion to store the userInput
                 checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -268,6 +305,7 @@ public class DisplayQuizzController {
                     }
                 });
             }
+            //displays the incorrect answers from a finished quiz (only student)
             if(canViewCorrectAnswers){
                 if(CheckForfalseAnswers(i, currFrage) == true){
                     label.setStyle("-fx-background-color: RED");
@@ -285,8 +323,13 @@ public class DisplayQuizzController {
         displayFrageNum.setText("Frage: " + currFrage);
 
     }
+
+
     public static DecimalFormat df2 = new DecimalFormat("#.##");
 
+
+    //*only if canViewResults == true && canEdit == false*//
+    //calculates the sum of all points to display the end point of the student
     public void CalculateCorrectPoints(){
         String[] data = originalQuiz.split(";;");
         float points = 0;
@@ -297,6 +340,16 @@ public class DisplayQuizzController {
         receivedPoints = points;
     }
 
+
+    //*only if canViewResults == true && canEdit == false*//
+    //calculates the points the student gets from each question
+    //example:
+    // -maxpoint for question = 9
+    // -amount of answers = 3
+    // -answer1 = false; answer2 = true; answer 3 = false;
+    // -for each correct answer he gets: 9 (maxpoints for questions) / 3 (amount of answers) = 3 points
+    // -if the student would answer: -answer1 = true; answer2 = true; answer 3 = false
+    //  he would get 6/9 points
     public float CalculateCorrectPointPerQuestion(int currFrage){
         String[] data = originalQuiz.split(";;");
         int points = allPointsPerQuestion[currFrage - 1];
@@ -314,6 +367,9 @@ public class DisplayQuizzController {
         return finalPoints;
     }
 
+
+    //*only if canViewResults == true && canEdit == false*//
+    //reads the string with all answers and checks if the original quiz would be the same as the user filled in quiz
     public boolean CheckForfalseAnswers(int pos, int currFrage){
         String[] data = originalQuiz.split(";;");
         String[] allAnswersdata = allAnswersPerQuestion[currFrage - 1].split(";");
