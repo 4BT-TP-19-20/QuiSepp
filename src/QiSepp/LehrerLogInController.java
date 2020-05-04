@@ -39,8 +39,8 @@ public class LehrerLogInController {
             passwortTextField.setStyle("-fx-text-fill: red");
             return;
         }
-        StarteServer();
-        lehrer.start("localhost");
+        // StarteServer();
+        // lehrer.start("localhost");
 
         Parent newRoot = null;
         try {

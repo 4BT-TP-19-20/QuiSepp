@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
@@ -30,11 +32,20 @@ public class SchuelerLogInController {
     Label nameLabel, nachnameLabel;
     @FXML
     TextField serverIP;     //the student has to type in the IP that he receives from the teacher to connect to the server
+    @FXML
+    ImageView QuiSeppLogoIV;
 
     private String name;
     private String nachname;
     public Client schüler = new Client();
     private String quiz;
+    public String logoPath = "Resources\\QuiSeppLogo.png";
+    //Image logoImage = new Image(logoPath);
+
+    public void initialize(){
+
+        //QuiSeppLogoIV.setImage(logoImage);
+    }
 
     public void starteQuiz() throws IOException, InterruptedException {
         name = nameTextField.getText();

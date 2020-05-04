@@ -150,7 +150,7 @@ public class DisplayQuizzController {
                 allAnswersPerQuestion[i - 1] += data[i].split(";")[j] + ";";
             }
 
-            if(!canViewCorrectAnswers) {
+            if(!canViewCorrectAnswers && canEditQuiz == false) {
                 String[] str2 = allAnswersPerQuestion[i - 1].split(";");
                 allAnswersPerQuestion[i - 1] = "";
                 for (int j = 0; j < str2.length; j += 2) {
@@ -158,9 +158,6 @@ public class DisplayQuizzController {
                     allAnswersPerQuestion[i - 1] += str2[j] + ";" + str2[j + 1] + ";";
                 }
             }
-            System.out.println(allAnswersPerQuestion[i - 1]);
-            System.out.println(allQuestions[i - 1]);
-            System.out.println(allPointsPerQuestion[i - 1]);
         }
         if(!canViewCorrectAnswers) {
             SetButton(displayedQuiz);
@@ -219,7 +216,6 @@ public class DisplayQuizzController {
                 @Override
                 public void handle(ActionEvent event) {
                     PackToFinalString();
-                    System.out.println(finalQuiz);
                     SendBackQuizResults(finalQuiz);
 
                     FXMLLoader fxmlLoader = new FXMLLoader();
@@ -356,7 +352,6 @@ public class DisplayQuizzController {
         int trueAnswers = 0;
         int allAnswers = allAnswersPerQuestion[currFrage - 1].split(";").length;
         float finalPoints = (float)points / ((float)allAnswers/2);
-        System.out.println(allAnswers);
         for (int i = 0; i < allAnswers; i += 2){
             if(CheckForfalseAnswers(i, currFrage) == false){
                 trueAnswers++;
@@ -374,7 +369,6 @@ public class DisplayQuizzController {
         String[] data = originalQuiz.split(";;");
         String[] allAnswersdata = allAnswersPerQuestion[currFrage - 1].split(";");
         if(allAnswersdata[pos + 1].compareTo(data[currFrage].split(";")[pos + 3]) != 0){
-            System.out.println(allAnswersdata[pos]);
             return true;
         }
         return false;
