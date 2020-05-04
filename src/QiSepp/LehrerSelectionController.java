@@ -30,13 +30,30 @@ public class LehrerSelectionController {
     // -if you are a teacher you can select the quiz so that it gets displayed
     //  and you get a button in the right upper corner to edit the quiz
     public void btnAlleQuiz(){
+        FXMLLoader fxmlLoader = new FXMLLoader();
         Parent newRoot = null;
         try {
-            newRoot = FXMLLoader.load(getClass().getResource("DisplayAllQuizzes.fxml"));
+            newRoot = newRoot = fxmlLoader.load(getClass().getResource("DisplayAllQuizzes.fxml").openStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
+        DisplayAllQuizzesController displayAllQuizzesController = fxmlLoader.getController();
+        displayAllQuizzesController.display("Quizze\\", true, false);
         SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane);
+    }
+
+    public void btnErhalteneQuiz(){
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Parent newRoot = null;
+        try {
+            newRoot = newRoot = fxmlLoader.load(getClass().getResource("DisplayAllQuizzes.fxml").openStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        DisplayAllQuizzesController displayAllQuizzesController = fxmlLoader.getController();
+        displayAllQuizzesController.display("QuizzeErhalten\\", false, true);
+        SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane);
+
     }
 
     public void goBack(){

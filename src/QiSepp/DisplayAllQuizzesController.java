@@ -25,8 +25,7 @@ public class DisplayAllQuizzesController {
     ArrayList<Button> allButtons = new ArrayList<>();
 
     //displays every quiz that is stored locally on the teachers pc and displays it with a button
-    public void initialize(){
-        String path = "Quizze\\";
+    public void display(String path, boolean canEdit, boolean canViewCorrectAnswers){
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
 
@@ -54,7 +53,7 @@ public class DisplayAllQuizzesController {
                                 e.printStackTrace();
                             }
                             DisplayQuizzController displayQuizzController = (DisplayQuizzController) fxmlLoader.getController();
-                            displayQuizzController.receiveQuiz(str, true, false);
+                            displayQuizzController.receiveQuiz(str, canEdit, canViewCorrectAnswers);
                             SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane, 900, 900, 500, 70);
                         }
                     });

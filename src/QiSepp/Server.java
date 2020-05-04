@@ -1,7 +1,5 @@
 package QiSepp;
 
-import com.sun.org.apache.xerces.internal.xs.StringList;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -10,7 +8,7 @@ public class Server implements Runnable {
     public Socket[] clients;
     public String[] students;
     public int i;
-    String path = "D:\\Informatk\\Programme\\spiel\\src\\QuiSeppApp\\src\\QiSepp\\Quizzes\\";
+    String path = "Quizze\\";
     File folder = new File(path);
 
     public Server(){
@@ -75,8 +73,19 @@ public class Server implements Runnable {
         }
     }
 
-        @Override
-        public void run() {
+    @Override
+    public void run() {
 
+    }
+
+
+    public void StoreQuizLocal(String quiz){
+        File f = new File("QuizzeErhalten\\" + quiz.split(";")[0] + ".txt");
+
+        try {
+            f.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
