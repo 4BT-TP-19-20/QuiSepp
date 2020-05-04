@@ -33,7 +33,7 @@ public class Client implements Runnable{
         }
     }
 
-    public void send(String msg) throws IOException{
+    public void send(String msg) throws IOException {
         sendMessage(socket, msg);
     }
     public String read() throws IOException{

@@ -73,7 +73,7 @@ public class NeuesQuizErstellenController {
         data += frage.getText() + ";" + getFragePunkte() + ";";
         for(int i = 0; i < allCurrentAnswers.size(); i++){
             data += allCurrentAnswers.get(i).getText() + ";";
-            if(allCurrentAnswerCheckBox.get(i).isSelected() == true){
+            if(allCurrentAnswerCheckBox.get(i).isSelected()){
                 data += "true" + ";";
             }else {
                 data += "false" + ";";
@@ -91,7 +91,7 @@ public class NeuesQuizErstellenController {
         data += frage.getText() + ";" + getFragePunkte() + ";";
         for(int i = 0; i < allCurrentAnswers.size(); i++){
             data += allCurrentAnswers.get(i).getText() + ";";
-            if(allCurrentAnswerCheckBox.get(i).isSelected() == true){
+            if(allCurrentAnswerCheckBox.get(i).isSelected()){
                 data += "true" + ";";
             }else {
                 data += "false" + ";";
