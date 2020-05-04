@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <StackPane fx:id="root" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QiSepp.SchuelerLogInController">
@@ -19,7 +18,6 @@
             <TextField fx:id="quizPassoworTextField" layoutX="215.0" layoutY="268.0" />
             <TextField fx:id="serverIP" layoutX="437.0" layoutY="27.0" />
             <Label layoutX="437.0" layoutY="6.0" text="Server IP:" />
-            <ImageView fx:id="QuiSeppLogoIV" fitHeight="204.0" fitWidth="252.0" layoutX="167.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true" />
          </children></AnchorPane>
    </children>
 </StackPane>
