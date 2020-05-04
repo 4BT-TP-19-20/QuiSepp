@@ -218,10 +218,9 @@ public class DisplayQuizzController {
                 @Override
                 public void handle(ActionEvent event) {
 
-                    PackToFinalString();
-
                     System.out.println("FinalString: " + finalQuiz);
                     try {
+                        PackToFinalString();
                         SendBackQuizResults(finalQuiz);
                     } catch (IOException e) {
                         e.printStackTrace();
