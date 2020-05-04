@@ -13,6 +13,7 @@ public class Server implements Runnable {
     public String[] students;
     public String[] inhalt;
     public File[] files;
+    String quiz;
     public int j=-1;
     public int i;
 
@@ -35,6 +36,14 @@ public class Server implements Runnable {
             students[i]=username;
             System.out.println("Schüler " + students[i] + " hat sich eingeloggt!");
             returnQuiz(readMessage(client));
+            while(true){
+                quiz=readMessage(client);
+                if(quiz!=null){
+                    System.out.println(quiz);
+                    sendMessage(clients[0], quiz);
+                    return;
+                }
+            }
         }
     }
 
