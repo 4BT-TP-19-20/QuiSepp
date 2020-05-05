@@ -69,6 +69,7 @@ public class SchuelerLogInController {
     public void StarteClient(String ip) throws IOException, InterruptedException {
         schüler.start(ip);
         schüler.send(name);
+        Thread.sleep(1000);
         schüler.send(nachname);
         Thread.sleep(2000);
 
@@ -94,7 +95,7 @@ public class SchuelerLogInController {
             e.printStackTrace();
         }
         DisplayQuizzController displayQuizzController = (DisplayQuizzController) fxmlLoader.getController();
-        displayQuizzController.receiveQuiz(quiz, false, false);
+        displayQuizzController.setSchüler(schüler, quiz);
         SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane, 900, 900, 500, 70);
     }
 

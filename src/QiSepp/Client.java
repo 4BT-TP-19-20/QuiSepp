@@ -10,10 +10,6 @@ public class Client implements Runnable{
 
     public void start(String ip) {
 
-       /* System.out.println("Mit wem willst du dich verbinden? (IP)");
-        Scanner scanner = new Scanner(System.in);
-        String ip = scanner.nextLine();*/
-
         try {
             socket = new Socket(ip, 36187);
         } catch (IOException e) {
@@ -39,8 +35,6 @@ public class Client implements Runnable{
     public String read() throws IOException{
         return readMessage(socket);
     }
-
-
 
     @Override
     public void run() {

@@ -24,13 +24,15 @@ public class Server implements Runnable {
         inhalt=new String[50];
     }
 
+
+    //LogIn
     public void logIn(Socket client, int i) throws IOException {
         String username=readMessage(client);
         ++j;
-
+        //Lehrer
         if(username.equals("admin")){
             System.out.println("Lehrer hat sich eingeloggt");
-        }else{
+        }else{ //Schüler
             username=username.concat(" ");
             username=username.concat(readMessage(client));
             students[i]=username;
@@ -40,13 +42,16 @@ public class Server implements Runnable {
                 quiz=readMessage(client);
                 if(quiz!=null){
                     System.out.println(quiz);
-                    sendMessage(clients[0], quiz);
+                    //sendMessage(clients[0], quiz);
+                    StoreQuizLocal(quiz);
                     return;
                 }
             }
         }
     }
 
+
+    //Gibt Schüler Quiz zurück
     public void returnQuiz(String key) throws IOException {
         File f= new File("Quizze\\");
         String quiz;
@@ -94,6 +99,24 @@ public class Server implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    //speichert beantwortetes Quiz ab
+    public void StoreQuizLocal(String quiz){
+        File f = new File("QuizzeErhalten\\" + quiz.split(";")[0] + ".txt");
+
+        try {
+            f.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try (FileWriter writer = new FileWriter(f.getPath());
+             BufferedWriter bw = new BufferedWriter(writer)) {
+            bw.write(quiz);
+        } catch (IOException e) {
+            System.err.format("IOException: %s%n", e);
         }
     }
 

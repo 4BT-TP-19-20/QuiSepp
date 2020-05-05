@@ -27,7 +27,7 @@ public class LehrerLogInController {
     public Client lehrer=new Client();
 
 
-    public void anmelden(){
+    public void anmelden() throws IOException {
         //checks the username and sets the text to red if it was incorrect
         if(benuzterTextField.getText().compareTo(lehrerBenutzername) != 0){
             benuzterTextField.setStyle("-fx-text-fill: red");
@@ -41,6 +41,7 @@ public class LehrerLogInController {
         }
         StarteServer();
         lehrer.start("localhost");
+        lehrer.send("admin");
 
         Parent newRoot = null;
         try {

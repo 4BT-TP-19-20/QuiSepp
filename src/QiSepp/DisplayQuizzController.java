@@ -39,6 +39,7 @@ public class DisplayQuizzController {
     String strQuizPassword = null;
     int intMaxPoints = 0;
     float receivedPoints = 0;
+    Client schüler;
 
     //*properties to display the quiz*//
     //if true (only for teacher): it gets created a button to edit the quiz;
@@ -216,7 +217,11 @@ public class DisplayQuizzController {
                 @Override
                 public void handle(ActionEvent event) {
                     PackToFinalString();
-                    SendBackQuizResults(finalQuiz);
+                    try {
+                        SendBackQuizResults(finalQuiz);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     Parent newRoot = null;
@@ -234,10 +239,15 @@ public class DisplayQuizzController {
         }
     }
 
+    public void setSchüler(Client student, String quiz){
+        schüler=student;
+        receiveQuiz(quiz, false, false);
+    }
+
 
     //sends the quiz that the student filled in back to the teacher
-    public void SendBackQuizResults(String quiz){
-
+    public void SendBackQuizResults(String quiz) throws IOException {
+        schüler.send(quiz);
     }
 
 
