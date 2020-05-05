@@ -51,7 +51,7 @@ public class LehrerSelectionController {
             e.printStackTrace();
         }
         DisplayAllQuizzesController displayAllQuizzesController = fxmlLoader.getController();
-        displayAllQuizzesController.display("QuizzeErhalten\\", false, true);
+        displayAllQuizzesController.display("QuizzeErhalten\\", true, false);
         SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane);
 
     }
