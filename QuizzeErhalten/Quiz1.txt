@@ -1,1 +1,0 @@
-Quiz1;Passwort;20;;Moin Meister?;7;FF;false;ff;true;;Hallo Frage 2;5;SSSSKKKR;true;Br;false;;

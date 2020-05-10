@@ -5,34 +5,30 @@ import java.net.ServerSocket;
 
 public class ServerMain {
 
-    private Thread[] threads;
+    public Thread[] threads;
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws InterruptedException {
         ServerMain serverMain= new ServerMain();
         serverMain.start();
     }
 
     public ServerMain () {
-
-        threads = new Thread[20];
+        threads = new Thread[100];
     }
 
-    public void start(){
+    public void start() throws InterruptedException {
         try{
             ServerSocket serverSocket = new ServerSocket(36187);
             Server server = new Server();
-
-            for (int i = 0; i < 20; ++i) {
+            int i =0;
+            while(true) {
                 server.setClients(server.WaitForConnection(serverSocket), i);
                 server.logIn(server.getClient(i), i);
                 threads[i] = new Thread(server);
                 threads[i].start();
             }
-            System.out.println("Server wird geschlossen!");
-            for (int i = 0; i< 20; ++i) {
-                threads[i].join();
-            }
-        }catch(IOException | InterruptedException e){
+
+        }catch(IOException e){
             e.printStackTrace();
         }
     }

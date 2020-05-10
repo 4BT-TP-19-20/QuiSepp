@@ -29,6 +29,7 @@ public class NeuesQuizErstellenController {
     Label disNumFrage, displayVergebenePunkte;
     @FXML
     VBox containerAllAnswers, containerAllCheckBox;
+    @FXML Label feedbackLabel;
 
     ArrayList<TextField> allCurrentAnswers = new ArrayList<>();
     ArrayList<CheckBox> allCurrentAnswerCheckBox = new ArrayList<>();
@@ -49,7 +50,7 @@ public class NeuesQuizErstellenController {
             CheckBox checkBox = new CheckBox();
             containerAllCheckBox.getChildren().add(checkBox);
             containerAllAnswers.getChildren().add(textField);
-            textField.setPromptText("Gib eine Antort ein");
+            textField.setPromptText("Geben Sie eine Antwort ein");
             checkBox.setText("");
             allCurrentAnswers.add(textField);
             allCurrentAnswerCheckBox.add(checkBox);
@@ -244,6 +245,7 @@ public class NeuesQuizErstellenController {
         try (FileWriter writer = new FileWriter(f.getPath());
              BufferedWriter bw = new BufferedWriter(writer)) {
             bw.write(finalData);
+            feedbackLabel.setText("Speichern erfolgreich!");
         } catch (IOException e) {
             System.err.format("IOException: %s%n", e);
         }

@@ -33,7 +33,7 @@ public class LehrerSelectionController {
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent newRoot = null;
         try {
-            newRoot = newRoot = fxmlLoader.load(getClass().getResource("DisplayAllQuizzes.fxml").openStream());
+            newRoot = fxmlLoader.load(getClass().getResource("DisplayAllQuizzes.fxml").openStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -46,7 +46,7 @@ public class LehrerSelectionController {
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent newRoot = null;
         try {
-            newRoot = newRoot = fxmlLoader.load(getClass().getResource("DisplayAllQuizzes.fxml").openStream());
+            newRoot = fxmlLoader.load(getClass().getResource("DisplayAllQuizzes.fxml").openStream());
         } catch (IOException e) {
             e.printStackTrace();
         }

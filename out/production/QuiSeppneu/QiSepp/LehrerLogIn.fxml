@@ -1,19 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
-<StackPane fx:id="root" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QiSepp.LehrerLogInController">
+<StackPane fx:id="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QiSepp.LehrerLogInController">
     <children>
         <AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="anchorPaneControlls" stylesheets="@LehrerLogInStyleSheet.css">
             <children>
-                <Label layoutX="193.0" layoutY="140.0" prefWidth="164.0" text="Benutzer Name:" />
-                <Label layoutX="193.0" layoutY="192.0" prefWidth="164.0" text="Passwort:" />
-                <TextField fx:id="benuzterTextField" layoutX="193.0" layoutY="157.0" onMouseEntered="#resetBenetzernameField" prefWidth="200.0" />
-                <TextField fx:id="passwortTextField" layoutX="193.0" layoutY="210.0" onMouseEntered="#resetPasswortField" prefWidth="200.0" />
-                <Button mnemonicParsing="false" onAction="#changeToSchuelerLogIn" prefHeight="60.0" prefWidth="120.0" text="Schüler" />
-                <Button layoutX="120.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="120.0" text="Lehrer" />
-                <Button layoutX="258.0" layoutY="263.0" mnemonicParsing="false" onAction="#anmelden" text="Anmelden" />
+                <Label layoutX="193.0" layoutY="132.0" prefWidth="164.0" text="Benutzername:">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+                <Label layoutX="193.0" layoutY="194.0" prefWidth="164.0" text="Passwort:">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+                <TextField fx:id="benuzterTextField" layoutX="193.0" layoutY="157.0" onMouseEntered="#resetBenetzernameField" prefWidth="200.0">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
+            <PasswordField fx:id="passwortField" layoutX="191.0" layoutY="219.0" prefHeight="30.0" prefWidth="200.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </PasswordField>
+                <Button layoutX="246.0" layoutY="275.0" mnemonicParsing="false" onAction="#anmelden" text="Anmelden">
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
+                <Button mnemonicParsing="false" onAction="#changeToSchuelerLogIn" prefHeight="60.0" prefWidth="120.0" text="Schüler">
+               <font>
+                  <Font size="15.0" />
+               </font></Button>
+                <Button layoutX="120.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="120.0" text="Lehrer">
+               <font>
+                  <Font size="15.0" />
+               </font></Button>
+            <Label fx:id="alertLabel" layoutX="170.0" layoutY="328.0" prefHeight="25.0" prefWidth="260.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
     </children>

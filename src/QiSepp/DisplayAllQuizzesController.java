@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -24,12 +25,14 @@ public class DisplayAllQuizzesController {
     ArrayList<String> allData = new ArrayList<>();
     ArrayList<Button> allButtons = new ArrayList<>();
 
+
     //displays every quiz that is stored locally on the teachers pc and displays it with a button
     public void display(String path, boolean canEdit, boolean canViewCorrectAnswers){
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
 
         for (File file : listOfFiles) {
+            System.out.println();
             if (file.isFile()) {
                 try {
                     BufferedReader br = new BufferedReader(new FileReader(path + file.getName()));
@@ -37,6 +40,7 @@ public class DisplayAllQuizzesController {
                     String[] str2 = str.split(";");
                     allData.add(str);
                     Button button = new Button();
+                    button.setFont(new Font(14));
                     button.setText(str2[0]);
                     vboxForQuizzes.getChildren().add(button);
                     button.setPrefWidth(vboxForQuizzes.getPrefWidth());
@@ -48,7 +52,7 @@ public class DisplayAllQuizzesController {
                             FXMLLoader fxmlLoader = new FXMLLoader();
                             Parent newRoot = null;
                             try {
-                                newRoot = newRoot = fxmlLoader.load(getClass().getResource("DisplayQuizz.fxml").openStream());
+                                newRoot = fxmlLoader.load(getClass().getResource("DisplayQuizz.fxml").openStream());
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -72,7 +76,7 @@ public class DisplayAllQuizzesController {
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent newRoot = null;
         try {
-            newRoot = newRoot = fxmlLoader.load(getClass().getResource("LehrerSelection.fxml"));
+            newRoot = fxmlLoader.load(getClass().getResource("LehrerSelection.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

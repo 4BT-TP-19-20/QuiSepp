@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -198,7 +199,7 @@ public class DisplayQuizzController {
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     Parent newRoot = null;
                     try {
-                        newRoot = newRoot = fxmlLoader.load(getClass().getResource("NeuesQuizErstellen.fxml").openStream());
+                        newRoot = fxmlLoader.load(getClass().getResource("NeuesQuizErstellen.fxml").openStream());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -226,7 +227,7 @@ public class DisplayQuizzController {
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     Parent newRoot = null;
                     try {
-                        newRoot = newRoot = fxmlLoader.load(getClass().getResource("DisplayQuizz.fxml").openStream());
+                        newRoot = fxmlLoader.load(getClass().getResource("DisplayQuizz.fxml").openStream());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -284,7 +285,9 @@ public class DisplayQuizzController {
             containerAnswers.getChildren().add(label);
 
             checkBox.setText("");
+            checkBox.setFont(new Font(16));
             checkBox.setPrefHeight(25);
+            label.setFont(new Font(16));
             label.setText(allCurrentAnswers[i]);
             label.setPrefHeight(25);
 

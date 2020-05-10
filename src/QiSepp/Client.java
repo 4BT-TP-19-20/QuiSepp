@@ -29,6 +29,8 @@ public class Client implements Runnable{
         }
     }
 
+    //sendMessage
+
     public void send(String msg) throws IOException {
         sendMessage(socket, msg);
     }

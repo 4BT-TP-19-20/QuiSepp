@@ -25,11 +25,11 @@ public class SchuelerLogInController {
     @FXML
     TextField nachnameTextField; //To enter the nachname of the student
     @FXML
-    TextField quizPassoworTextField; //to enter the password of the quiz that the student wants to make
+    TextField quizPasswordTextField; //to enter the password of the quiz that the student wants to make
     @FXML
     Button schuelerBtn, lehrerBtn, quizStartenBtn;
     @FXML
-    Label nameLabel, nachnameLabel;
+    Label nameLabel, nachnameLabel, keyAlert, ipAlert, namenAlert;
     @FXML
     TextField serverIP;     //the student has to type in the IP that he receives from the teacher to connect to the server
     @FXML
@@ -48,6 +48,24 @@ public class SchuelerLogInController {
     }
 
     public void starteQuiz() throws IOException, InterruptedException {
+        if(nameTextField.getText().equals("") || nameTextField.getText().equals(" ")){
+            namenAlert.setText("Bitte Name angeben!");
+            return;
+        }
+
+        if(nachnameTextField.getText().equals("") || nachnameTextField.getText().equals(" ")){
+            namenAlert.setText("Bitte Name angeben!");
+            return;
+        }else{
+            namenAlert.setText("");
+        }
+
+        if(serverIP.getText().equals("") || serverIP.getText().equals(" ")){
+            ipAlert.setText("Bitte IP angeben!");
+            return;
+        }else{
+            serverIP.setText("");
+        }
         name = nameTextField.getText();
         nachname = nachnameTextField.getText();
         //Client starts when a student logs in
@@ -65,7 +83,7 @@ public class SchuelerLogInController {
         SceneLoader.LoadScreenAnimation(newRoot, root, anchorPane);
     }
 
-    //Client wird gestartet und sendet ip und namen an den Serever
+    //Client wird gestartet und sendet ip und namen an den Server
     public void StarteClient(String ip) throws IOException, InterruptedException {
         schüler.start(ip);
         schüler.send(name);
@@ -77,10 +95,14 @@ public class SchuelerLogInController {
     }
 
     //Schüler sendet quizpassword an Server und erhält dann das Quiz zugeschickt
-    public void SendQuizPasswordToServer() throws IOException {
-        String passwort = quizPassoworTextField.getText();
+    public void SendQuizPasswordToServer() throws IOException, InterruptedException {
+        String passwort = quizPasswordTextField.getText();
         schüler.send(passwort);
         quiz=schüler.read();
+        if(quiz.equals("Falsch")){
+            keyAlert.setText("Falscher Key!");
+            starteQuiz();
+        }
         System.out.println("Quiz: " + quiz);
         StarteErhaltenesQuiz(quiz);
     }
@@ -90,7 +112,8 @@ public class SchuelerLogInController {
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent newRoot = null;
         try {
-            newRoot = newRoot = fxmlLoader.load(getClass().getResource("DisplayQuizz.fxml").openStream());
+            newRoot = fxmlLoader.load(getClass().getResource("DisplayQuizz.fxml").openStream());
+            newRoot.getStylesheets().add(getClass().getResource("DisplayQuizzStyleSheet.css").toExternalForm());
         } catch (IOException e) {
             e.printStackTrace();
         }

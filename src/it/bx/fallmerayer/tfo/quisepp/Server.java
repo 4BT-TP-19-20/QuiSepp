@@ -43,7 +43,8 @@ public class Server implements Runnable {
                 if(quiz!=null){
                     System.out.println(quiz);
                     //sendMessage(clients[0], quiz);
-                    StoreQuizLocal(quiz);
+                    StoreQuizLocal(quiz, i);
+                    ++i;
                     return;
                 }
             }
@@ -69,6 +70,7 @@ public class Server implements Runnable {
             }
             ++i;
         }while(i<files.length);
+        sendMessage(clients[j], "Falsch");
         System.out.println("Key nicht gefunden!");
     }
 
@@ -103,8 +105,8 @@ public class Server implements Runnable {
     }
 
     //speichert beantwortetes Quiz ab
-    public void StoreQuizLocal(String quiz){
-        File f = new File("QuizzeErhalten\\" + quiz.split(";")[0] + ".txt");
+    public void StoreQuizLocal(String quiz, int i){
+        File f = new File("QuizzeErhalten\\" + quiz.split(";")[0] + "_" + students[i] + ".txt");
 
         try {
             f.createNewFile();
@@ -122,6 +124,5 @@ public class Server implements Runnable {
 
         @Override
         public void run() {
-
     }
 }

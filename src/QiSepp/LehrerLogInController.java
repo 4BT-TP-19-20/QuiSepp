@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -20,6 +22,10 @@ public class LehrerLogInController {
     TextField benuzterTextField;
     @FXML
     TextField passwortTextField;
+    @FXML
+    PasswordField passwortField;
+    @FXML
+    Label alertLabel;
 
     private Scene currentScene;
     private String lehrerBenutzername = "admin";
@@ -28,15 +34,17 @@ public class LehrerLogInController {
 
 
     public void anmelden() throws IOException {
+        String test=passwortField.getText();
+        System.out.println(test);
         //checks the username and sets the text to red if it was incorrect
         if(benuzterTextField.getText().compareTo(lehrerBenutzername) != 0){
-            benuzterTextField.setStyle("-fx-text-fill: red");
+            alertLabel.setText("Benutzername oder Passwort falsch!");
             return;
         }
 
         //checks the password and sets the text to red if it was incorrect
-        if(passwortTextField.getText().compareTo(lehrerPasswort) != 0){
-            passwortTextField.setStyle("-fx-text-fill: red");
+        if(passwortField.getText().compareTo(lehrerPasswort) != 0){
+            alertLabel.setText("Benutzername oder Passwort falsch!");
             return;
         }
         StarteServer();

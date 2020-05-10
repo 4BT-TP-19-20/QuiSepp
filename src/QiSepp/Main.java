@@ -20,11 +20,12 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root = fxmlLoader.load(getClass().getResource("SchuelerLogIn.fxml").openStream());
+        Parent root = fxmlLoader.load(getClass().getResource("LehrerLogIn.fxml").openStream());
+        root.getStylesheets().add(getClass().getResource("LehrerLogInStyleSheet.css").toExternalForm());
         primaryStage.setTitle("");
+        primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 600, 500));
         primaryStage.show();
-        SchuelerLogInController schuelerLogInController = (SchuelerLogInController) fxmlLoader.getController();
 
     }
 
